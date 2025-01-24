@@ -5,7 +5,7 @@ function App() {
 
   return (
     <>
-   <h1>Digital Library App</h1>
+   <h1>e-Library App</h1>
    <BookList />
     </>
   );

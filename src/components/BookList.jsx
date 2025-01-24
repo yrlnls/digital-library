@@ -35,6 +35,23 @@ function BookList() {
           .catch((error) => console.error("Error adding book:", error));
       }
 
+      function handleDeleteBook(bookId) {
+        console.log("Deleting book with ID:", bookId);
+        setBooks(books.filter(book => book.id !== bookId));
+
+        fetch(`http://localhost:3000/books/${bookId}`, {
+          method: "DELETE",
+        })
+        .then(response => {
+          if (response.ok) {
+            console.log("Book deleted successfully");
+          } else {
+            console.error("Error deleting book:", response.statusText);
+          }
+        })
+        .catch((error) => console.error("Error deleting book:", error));
+      }
+
   return (
     <>
     <input 
@@ -43,10 +60,10 @@ function BookList() {
      value={searchTerm} 
      onChange={(e) => setSearchTerm(e.target.value)} 
      />
-    <h1>e-Library</h1>
+    <h1>Books</h1>
     <ul>
       {filteredBooks.map((book) => (
-        <BookItem key={book.title} bookItem={book} />
+        <BookItem key={book.id} bookItem={book} onDelete={handleDeleteBook} />
       ))}
     </ul>
     <AddBookForm onAddBook={handleAddBook} />
@@ -54,4 +71,4 @@ function BookList() {
   )
 }
 
-export default BookList
+export default BookList;
