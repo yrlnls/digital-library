@@ -1,5 +1,5 @@
 import { useState } from 'react'
-function AddBookForm(onAddBook) {
+function AddBookForm({ onAddBook }) {
     const [newBook, setNewBook] = useState({ title: "", author: "", genre: "" });
     const [errorMessage, setErrorMessage] = useState("");
 
@@ -8,7 +8,7 @@ function AddBookForm(onAddBook) {
         if (newBook.title === "" || newBook.author === "" || newBook.genre === "") {
             setErrorMessage("Please fill in all required fields.");}
         else {
-            addTask(newBook);
+            onAddBook(newBook);
             setNewBook({ title: "", author: "", genre: "" });
             setErrorMessage("");
         }
@@ -18,6 +18,8 @@ function AddBookForm(onAddBook) {
         const { name, value } = event.target;
         setNewBook({ ...newBook, [name]: value });
     }
+
+
   return (
     <>
     <h1>Add Book</h1>
@@ -29,7 +31,7 @@ function AddBookForm(onAddBook) {
         <label>Genre: <input type="text" name="genre" value={newBook.genre} onChange={handleInputChange} /></label>
         <br />
         <button type="submit">Add Book</button>
-        {errorMessage && <p>{errorMessage}</p>}
+        {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
     </form>
     </>
   );

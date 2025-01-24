@@ -8,7 +8,7 @@ function BookList() {
     const [searchTerm, setSearchTerm] = useState("");
 
     useEffect(() => {
-        fetch("http://localhost:4000/books")
+        fetch("http://localhost:3000/books")
           .then((response) => response.json())
           .then((data) => setBooks(data))
           .catch((error) => console.error("Error fetching books:", error));
@@ -23,7 +23,7 @@ function BookList() {
         console.log("Adding book:", newBook);
         setBooks([...books, newBook]);
 
-        fetch("http://localhost:4000/books", {
+        fetch("http://localhost:3000/books", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -37,11 +37,16 @@ function BookList() {
 
   return (
     <>
-    <input type='text' placeholder='Search by title or genre' value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
-    <h1>This is the Digital Library Component</h1>
+    <input 
+    type="text"
+     placeholder="Search by title or genre"
+     value={searchTerm} 
+     onChange={(e) => setSearchTerm(e.target.value)} 
+     />
+    <h1>e-Library</h1>
     <ul>
-      {filteredBooks.map((book, index) => (
-        <BookItem key={index} taskItem={book} />
+      {filteredBooks.map((book) => (
+        <BookItem key={book.title} bookItem={book} />
       ))}
     </ul>
     <AddBookForm onAddBook={handleAddBook} />
