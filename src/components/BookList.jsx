@@ -14,6 +14,7 @@ function BookList() {
           .catch((error) => console.error("Error fetching books:", error));
       }, []);
 
+
       const filteredBooks = books.filter((book) =>
         book.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
       book.genre.toLowerCase().includes(searchTerm.toLowerCase())
@@ -53,22 +54,25 @@ function BookList() {
       }
 
   return (
-    <>
-    <input 
-    type="text"
-     placeholder="Search by title or genre"
-     value={searchTerm} 
-     onChange={(e) => setSearchTerm(e.target.value)} 
-     />
-    <h1>Books</h1>
-    <ul>
-      {filteredBooks.map((book) => (
-        <BookItem key={book.id} bookItem={book} onDelete={handleDeleteBook} />
-      ))}
-    </ul>
-    <AddBookForm onAddBook={handleAddBook} />
-    </>
+    <div className="booklist-container">
+      <input 
+        type="text"
+        placeholder="Search by title or genre"
+        value={searchTerm} 
+        onChange={(e) => setSearchTerm(e.target.value)} 
+        className="search-input"
+      />
+      <h1 className="booklist-title">Books</h1>
+      <ul className="booklist-ul">
+        {filteredBooks.map((book) => (
+          <BookItem key={book.id} bookItem={book} onDelete={handleDeleteBook} />
+        ))}
+      </ul>
+      <AddBookForm onAddBook={handleAddBook} />
+    </div>
   )
 }
+
+
 
 export default BookList;
